@@ -1,0 +1,26 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Copy link to the current line",
+        "command": "git-link:line"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "git-link",
+          "submenu": [
+            {
+              "label": "Copy line",
+              "command": "git-link:line"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
