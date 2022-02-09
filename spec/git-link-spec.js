@@ -2,72 +2,97 @@
 
 import GitLink from '../lib/git-link';
 
-// Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
-//
-// To run a specific `it` or `describe` block add an `f` to the front (e.g. `fit`
-// or `fdescribe`). Remove the `f` to unfocus the block.
-
+// Use the command `window:run-package-specs` (ctrl+shift+y) to run specs.
 describe('GitLink', () => {
-  let workspaceElement, activationPromise;
 
-  beforeEach(() => {
-    workspaceElement = atom.views.getView(atom.workspace);
-    activationPromise = atom.packages.activatePackage('git-link');
-  });
+    describe('Check if git is installed', () => {
+        // TODO
+    })
 
-  describe('when the git-link:toggle event is triggered', () => {
-    it('hides and shows the modal panel', () => {
-      // Before the activation event the view is not on the DOM, and no panel
-      // has been created
-      expect(workspaceElement.querySelector('.git-link')).not.toExist();
+    describe('Parsing functions - getRepoFromOrigin', () => {
+        it("has to support the GIT url as origin", () => {
+            // Expectations
+            const origin = 'git@github.com:keevan/git-link.git'
+            expect('https://github.com/keevan/git-link').toEqual(GitLink.getRepoFromOrigin(origin))
+        })
+        it("has to support the HTTPS url has origin", () => {
+            // Expectations
+            const origin = 'https://github.com/keevan/git-link.git'
+            expect('https://github.com/keevan/git-link').toEqual(GitLink.getRepoFromOrigin(origin))
+        })
+    })
 
-      // This is an activation event, triggering it will cause the package to be
-      // activated.
-      atom.commands.dispatch(workspaceElement, 'git-link:toggle');
+    describe('Parsing functions - getCommitHashFromLog', () => {
+        it("has to return in short form", () => {
+            // Expectations
+            const log = '014ed5d66c0e5afc7badd8fde666e399e43aa882 (HEAD -> main, origin/main) Add CI for github workflows'
+            expect('014ed5d').toEqual(GitLink.getCommitHashFromLog(log))
+        })
+    })
 
-      waitsForPromise(() => {
-        return activationPromise;
-      });
+    describe('Parsing functions - getRelativePathFromForwardFilePath', () => {
+        it('has to stay the same', () => {
+            // Expectations
+            const path = '/lib/git-link.js'
+            expect('/lib/git-link.js').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
+        })
+        it('has to support Windows paths', () => {
+            // Expectations
+            const path = '\\lib\\git-link.js'
+            expect('/lib/git-link.js').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
+        })
+        it('has to be properly encoded', () => {
+            // Expectations
+            const path = '/[folder]-[id]/file#example'
+            expect('/%5Bfolder%5D-%5Bid%5D/file%23example').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
+        })
+        it('has to add plain=1 as a parameter', () => {
+            // Expectations
+            const path = '/README.md'
+            expect('/README.md?plain=1').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
+        })
+    })
 
-      runs(() => {
-        expect(workspaceElement.querySelector('.git-link')).toExist();
+    describe('Editor state', () => {
 
-        let gitLinkElement = workspaceElement.querySelector('.git-link');
-        expect(gitLinkElement).toExist();
+        beforeEach(async () => {
+            await atom.workspace.open('sample.js');
 
-        let gitLinkPanel = atom.workspace.panelForItem(gitLinkElement);
-        expect(gitLinkPanel.isVisible()).toBe(true);
-        atom.commands.dispatch(workspaceElement, 'git-link:toggle');
-        expect(gitLinkPanel.isVisible()).toBe(false);
-      });
-    });
+            runs(() => {
+                editor = atom.workspace.getActiveTextEditor();
+                editorView = atom.views.getView(editor);
 
-    it('hides and shows the view', () => {
-      // This test shows you an integration test testing at the view level.
+                return activationPromise = atom.packages.activatePackage('git-link');
+            });
+        });
 
-      // Attaching the workspaceElement to the DOM is required to allow the
-      // `toBeVisible()` matchers to work. Anything testing visibility or focus
-      // requires that the workspaceElement is on the DOM. Tests that attach the
-      // workspaceElement to the DOM are generally slower than those off DOM.
-      jasmine.attachToDOM(workspaceElement);
+        // getCurrentLineNumber
+        it('has to be on the correct line', () => {
+            const editor = atom.workspace.getActiveTextEditor()
+            editor.setCursorBufferPosition([1,1]) // Because it starts from zero
+            expect(2).toEqual(GitLink.getCurrentLineNumber())
+            editor.setCursorBufferPosition([2,1]) // Because it starts from zero
+            expect(3).toEqual(GitLink.getCurrentLineNumber())
+            editor.setCursorBufferPosition([2,0]) // Because it starts from zero
+            expect(3).toEqual(GitLink.getCurrentLineNumber())
+            editor.setCursorBufferPosition([0,0]) // Because it starts from zero
+            expect(1).toEqual(GitLink.getCurrentLineNumber())
+        })
 
-      expect(workspaceElement.querySelector('.git-link')).not.toExist();
+        // getCurrentSelection
+        it('has to include the correct selections', () => {
+            const editor = atom.workspace.getActiveTextEditor()
+            editor.setCursorBufferPosition([1,1]) // Because it starts from zero
+            editor.selectToBufferPosition([5,5])
+            let [start, end] = GitLink.getCurrentSelection()
+            expect(2).toEqual(start)
+            expect(6).toEqual(end)
 
-      // This is an activation event, triggering it causes the package to be
-      // activated.
-      atom.commands.dispatch(workspaceElement, 'git-link:toggle');
-
-      waitsForPromise(() => {
-        return activationPromise;
-      });
-
-      runs(() => {
-        // Now we can test for view visibility
-        let gitLinkElement = workspaceElement.querySelector('.git-link');
-        expect(gitLinkElement).toBeVisible();
-        atom.commands.dispatch(workspaceElement, 'git-link:toggle');
-        expect(gitLinkElement).not.toBeVisible();
-      });
-    });
-  });
+            editor.setCursorBufferPosition([1,1]) // Because it starts from zero
+            editor.selectToBufferPosition([5,0])
+            let [start2, end2] = GitLink.getCurrentSelection()
+            expect(2).toEqual(start2)
+            expect(5).toEqual(end2)
+        })
+    })
 });
