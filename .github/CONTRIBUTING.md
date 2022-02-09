@@ -1,7 +1,7 @@
 Contributing
 ----------------------------------
 
-Hi there! Thank you for taking an interest in heling out.
+Hi there! Thank you for taking an interest in helping out.
 
 Please:
 
