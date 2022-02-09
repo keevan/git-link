@@ -1,10 +1,10 @@
 {
   "name": "git-link",
   "main": "./lib/git-link",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Easily get a web link to the current file, line or a selection",
   "keywords": [],
-  "repository": "https://github.com/atom/git-link",
+  "repository": "https://github.com/keevan/git-link",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
