@@ -10,12 +10,12 @@ describe('GitLink', () => {
     })
 
     describe('Parsing functions - getRepoFromOrigin', () => {
-        fit("has to support the GIT url as origin", () => {
+        it("has to support the GIT url as origin", () => {
             // Expectations
             const origin = 'git@github.com:keevan/git-link.git'
             expect('https://github.com/keevan/git-link').toEqual(GitLink.getRepoFromOrigin(origin))
         })
-        fit("has to support the HTTPS url has origin", () => {
+        it("has to support the HTTPS url has origin", () => {
             // Expectations
             const origin = 'https://github.com/keevan/git-link.git'
             expect('https://github.com/keevan/git-link').toEqual(GitLink.getRepoFromOrigin(origin))
@@ -23,7 +23,7 @@ describe('GitLink', () => {
     })
 
     describe('Parsing functions - getCommitHashFromLog', () => {
-        fit("has to return in short form", () => {
+        it("has to return in short form", () => {
             // Expectations
             const log = '014ed5d66c0e5afc7badd8fde666e399e43aa882 (HEAD -> main, origin/main) Add CI for github workflows'
             expect('014ed5d').toEqual(GitLink.getCommitHashFromLog(log))
@@ -31,17 +31,17 @@ describe('GitLink', () => {
     })
 
     describe('Parsing functions - getRelativePathFromForwardFilePath', () => {
-        fit('has to stay the same', () => {
+        it('has to stay the same', () => {
             // Expectations
             const path = '/lib/git-link.js'
             expect('/lib/git-link.js').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
         })
-        fit('has to be properly encoded', () => {
+        it('has to be properly encoded', () => {
             // Expectations
             const path = '/[folder]-[id]/file#example'
             expect('/%5Bfolder%5D-%5Bid%5D/file%23example').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
         })
-        fit('has to add plain=1 as a parameter', () => {
+        it('has to add plain=1 as a parameter', () => {
             // Expectations
             const path = '/README.md'
             expect('/README.md?plain=1').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
@@ -62,7 +62,7 @@ describe('GitLink', () => {
         });
 
         // getCurrentLineNumber
-        fit('has to be on the correct line', () => {
+        it('has to be on the correct line', () => {
             const editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition([1,1]) // Because it starts from zero
             expect(2).toEqual(GitLink.getCurrentLineNumber())
@@ -75,7 +75,7 @@ describe('GitLink', () => {
         })
 
         // getCurrentSelection
-        fit('has to include the correct selections', () => {
+        it('has to include the correct selections', () => {
             const editor = atom.workspace.getActiveTextEditor()
             editor.setCursorBufferPosition([1,1]) // Because it starts from zero
             editor.selectToBufferPosition([5,5])

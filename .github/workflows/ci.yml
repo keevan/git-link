@@ -3,7 +3,7 @@ name: ci
 on: [push, pull_request]
 
 env:
-  CI: false
+  CI: true
 
 jobs:
   Test:
