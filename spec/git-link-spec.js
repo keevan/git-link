@@ -36,6 +36,11 @@ describe('GitLink', () => {
             const path = '/lib/git-link.js'
             expect('/lib/git-link.js').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
         })
+        it('has to support Windows paths', () => {
+            // Expectations
+            const path = '\\lib\\git-link.js'
+            expect('/lib/git-link.js').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
+        })
         it('has to be properly encoded', () => {
             // Expectations
             const path = '/[folder]-[id]/file#example'
