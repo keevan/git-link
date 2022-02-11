@@ -10,6 +10,10 @@
     <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/keevan/git-link">
 </p>
 
+<p align="center">
+    <img alt="Demo" src="https://user-images.githubusercontent.com/9924643/153560901-2a21d301-db5d-44fa-b9c8-c09022a4b4bb.gif">
+</p>
+
 ### Requirements
 
 You must have git installed.
