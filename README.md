@@ -3,11 +3,12 @@
 </h1>
 <p align="center">Easily get a web link to the current file, line or a selection</p>
 <p align="center">
+    <img alt="APM" src="https://img.shields.io/apm/v/git-link">
     <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/keevan/git-link/ci">
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/keevan/git-link">
     <img alt="APM" src="https://img.shields.io/apm/dm/git-link">
     <img alt="GitHub" src="https://img.shields.io/github/license/keevan/git-link">
-    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/keevan/git-link">
+    <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/keevan/git-link">
 </p>
 
 <p align="center">
