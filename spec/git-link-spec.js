@@ -1,6 +1,8 @@
 'use babel';
 
 import GitLink from '../lib/git-link';
+import platform from '../lib/platform';
+import * as platforms from '../lib/platforms'
 
 // Use the command `window:run-package-specs` (ctrl+shift+y) to run specs.
 describe('GitLink', () => {
@@ -22,34 +24,84 @@ describe('GitLink', () => {
         })
     })
 
-    describe('Parsing functions - getCommitHashFromLog', () => {
-        it("has to return in short form", () => {
-            // Expectations
-            const log = '014ed5d66c0e5afc7badd8fde666e399e43aa882 (HEAD -> main, origin/main) Add CI for github workflows'
-            expect('014ed5d').toEqual(GitLink.getCommitHashFromLog(log))
+    describe('Test platform support - github', () => {
+        it("has to detect github", () => {
+            const urls = [
+             'git@github.com:keevan/git-link.git',
+             'https://github.com/keevan/git-link',
+            ]
+            urls.forEach(async url => {
+                const repo = GitLink.getRepoFromOrigin(url)
+                const p = await platform.create({ repo })
+                expect('github').toEqual(p.type)
+                const resolvedRepo = p.getRepo()
+                expect('https://github.com/keevan/git-link').toEqual(resolvedRepo)
+            })
         })
     })
 
-    describe('Parsing functions - getRelativePathFromForwardFilePath', () => {
+    describe('Test platform support - gitlab', () => {
+        it("has to detect gitlab", () => {
+            const urls = [
+             'git@gitlab.com:user/repo.git',
+             'https://gitlab.com/user/repo.git',
+            ]
+            urls.forEach(async url => {
+                const repo = GitLink.getRepoFromOrigin(url)
+                const p = await platform.create({ repo })
+                expect('gitlab').toEqual(p.type)
+                const resolvedRepo = p.getRepo()
+                expect('https://gitlab.com/user/repo').toEqual(resolvedRepo)
+            })
+        })
+    })
+
+    describe('Test platform support - azure', () => {
+        it("has to detect azure", () => {
+            const urls = [
+             'git@ssh.dev.azure.com:v3/keevan/Test/repo',
+             'https://dev.azure.com/keevan/Test/_git/repo',
+             'https://keevan@dev.azure.com/keevan/Test/_git/repo',
+            ]
+            urls.forEach(async url => {
+                const repo = GitLink.getRepoFromOrigin(url)
+                const p = await platform.create({ repo })
+                expect('azure').toEqual(p.type)
+                const resolvedRepo = p.getRepo()
+                expect('https://dev.azure.com/keevan/Test/_git/repo').toEqual(resolvedRepo)
+            })
+        })
+    })
+
+    describe('Parsing functions - getCommitHashFromLog', () => {
+        it("has to return the expected hash format", () => {
+            // Expectations
+            const log = '014ed5d66c0e5afc7badd8fde666e399e43aa882 (HEAD -> main, origin/main) Add CI for github workflows'
+            expect('014ed5d66c0e5afc7badd8fde666e399e43aa882').toEqual(GitLink.getCommitHashFromLog(log))
+            expect('014ed5d').toEqual(GitLink.getShortCommitHash('014ed5d66c0e5afc7badd8fde666e399e43aa882'))
+        })
+    })
+
+    describe('Parsing functions - cleanPath', () => {
         it('has to stay the same', () => {
             // Expectations
             const path = '/lib/git-link.js'
-            expect('/lib/git-link.js').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
+            expect('/lib/git-link.js').toEqual(GitLink.cleanPath(path))
         })
         it('has to support Windows paths', () => {
             // Expectations
             const path = '\\lib\\git-link.js'
-            expect('/lib/git-link.js').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
+            expect('/lib/git-link.js').toEqual(GitLink.cleanPath(path))
         })
         it('has to be properly encoded', () => {
             // Expectations
             const path = '/[folder]-[id]/file#example'
-            expect('/%5Bfolder%5D-%5Bid%5D/file%23example').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
+            expect('/%5Bfolder%5D-%5Bid%5D/file%23example').toEqual(GitLink.cleanPath(path))
         })
         it('has to add plain=1 as a parameter', () => {
             // Expectations
             const path = '/README.md'
-            expect('/README.md?plain=1').toEqual(GitLink.getRelativePathFromForwardFilePath(path))
+            expect('/README.md?plain=1').toEqual(GitLink.cleanPath(path))
         })
     })
 
