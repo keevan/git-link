@@ -1,14 +1,16 @@
 {
   "name": "git-link",
   "main": "./lib/git-link",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Easily get a web link to the current file, line or a selection",
   "keywords": [],
   "repository": "https://github.com/keevan/git-link",
   "license": "MIT",
   "release": {
     "extends": "@semantic-release/apm-config",
-    "branches": ["main"]
+    "branches": [
+      "main"
+    ]
   },
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
