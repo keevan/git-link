@@ -79,7 +79,6 @@ describe('GitLink', () => {
              'https://bitbucket.org/user/repo.git',
              'git@bitbucket.org:user/repo.git',
              'https://username@bitbucket.org/user/repo.git',
-             'https://username@bitbucket.org/user/repo.git',
             ]
             urls.forEach(async url => {
                 const repo = GitLink.getRepoFromOrigin(url)
