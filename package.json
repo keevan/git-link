@@ -1,7 +1,7 @@
 {
   "name": "git-link",
   "main": "./lib/git-link",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Easily get a web link to the current file, line or a selection",
   "keywords": [],
   "repository": "https://github.com/keevan/git-link",

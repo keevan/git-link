@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/keevan/git-link/compare/v0.3.0...v0.4.0) (2022-02-14)
+
+
+### Features
+
+* add bitbucket support ([#12](https://github.com/keevan/git-link/issues/12)) ([8704a37](https://github.com/keevan/git-link/commit/8704a3722c4f5a2faafcc95ea43a424e5fd64310)), closes [#6](https://github.com/keevan/git-link/issues/6)
+
 # [0.3.0](https://github.com/keevan/git-link/compare/v0.2.2...v0.3.0) (2022-02-14)
 
 
