@@ -38,6 +38,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.4.0
+        with:
+          token: ${{ secrets.GH_TOKEN_SEMANTIC_RELEASE || github.token }}
       - uses: UziTech/action-setup-atom@v1
       - uses: actions/setup-node@v2.5.1
         with:
