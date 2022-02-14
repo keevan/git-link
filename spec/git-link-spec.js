@@ -73,6 +73,24 @@ describe('GitLink', () => {
         })
     })
 
+    describe('Test platform support - bitbucket', () => {
+        it("has to detect bitbucket", () => {
+            const urls = [
+             'https://bitbucket.org/user/repo.git',
+             'git@bitbucket.org:user/repo.git',
+             'https://username@bitbucket.org/user/repo.git',
+             'https://username@bitbucket.org/user/repo.git',
+            ]
+            urls.forEach(async url => {
+                const repo = GitLink.getRepoFromOrigin(url)
+                const p = await platform.create({ repo })
+                expect('bitbucket').toEqual(p.type)
+                const resolvedRepo = p.getRepo()
+                expect('https://bitbucket.org/user/repo').toEqual(resolvedRepo)
+            })
+        })
+    })
+
     describe('Parsing functions - getCommitHashFromLog', () => {
         it("has to return the expected hash format", () => {
             // Expectations
