@@ -29,9 +29,11 @@ Or search for the `git-link` package via `Settings > Packages`. Read more on [At
 
 ### Supported platforms
 
-- Works for GitHub.com (public, tested).
-- Works for GitLab.com (public, tested).
-- It might work for others (untested).
+- Works for GitHub.com (public, tested)
+- Works for GitLab.com (public, tested)
+- Works for BitBucket.org (public, tested)
+- Works for Azure DevOps (dev.azure.com) (public, tested)
+- It might work for others (untested, PRs welcome)
 
 ### Features
 
