@@ -1,27 +1,58 @@
 name: ci
 
-on: [push, pull_request]
-
-env:
-  CI: true
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   Test:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         channel: [stable, beta]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v1
-    - uses: UziTech/action-setup-atom@v2
+    - uses: actions/checkout@v2.4.0
+    - uses: UziTech/action-setup-atom@v1
       with:
-        version: ${{ matrix.channel }}
-    - name: Install windows-build-tools
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: |
-        npm i windows-build-tools@4.0.0
+        channel: ${{ matrix.channel }}
+    - name: Atom version
+      run: atom -v
+    - name: APM version
+      run: apm -v
     - name: Install dependencies
-      run: apm install
+      run: apm ci
     - name: Run tests
+      env:
+        CI: true
       run: atom --test spec
+
+  Release:
+    needs: [Test]
+    if: |
+      github.ref == 'refs/heads/main' &&
+      github.event.repository.fork == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - uses: UziTech/action-setup-atom@v1
+      - uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 'lts/*'
+      - name: NPM install
+        run: npm ci
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ATOM_ACCESS_TOKEN: ${{ secrets.ATOM_ACCESS_TOKEN }}
+        run: npx semantic-release
+
+  Skip:
+    if: contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip CI
+        run: echo skip ci
