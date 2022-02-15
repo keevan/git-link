@@ -3,7 +3,21 @@
   "main": "./lib/git-link",
   "version": "0.4.0",
   "description": "Easily get the repository link to the current file, line or a selection",
-  "keywords": [],
+  "keywords": [
+      "azure-devops",
+      "bitbucket",
+      "github",
+      "gitlab",
+      "git",
+      "link",
+      "permalink",
+      "url",
+      "copy",
+      "review",
+      "commits",
+      "share",
+      "atom"
+  ],
   "repository": "https://github.com/keevan/git-link",
   "license": "MIT",
   "release": {
