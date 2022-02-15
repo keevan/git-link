@@ -1,7 +1,7 @@
 <h1 align="center">
     :link: git-link
 </h1>
-<p align="center">Easily get a web link to the current file, line or a selection</p>
+<p align="center">Easily get the repository link to the current file, line or a selection</p>
 <p align="center">
     <img alt="APM" src="https://img.shields.io/apm/v/git-link">
     <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/keevan/git-link/ci">
