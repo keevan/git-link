@@ -1,26 +1,20 @@
 {
-  "context-menu": {
-    "atom-text-editor": [
-      {
-        "label": "Copy link to the current line",
-        "command": "git-link:line"
-      }
-    ]
-  },
-  "menu": [
-    {
-      "label": "Packages",
-      "submenu": [
-        {
-          "label": "git-link",
-          "submenu": [
+    "context-menu": {
+        "atom-text-editor": [
             {
-              "label": "Copy line",
-              "command": "git-link:line"
+                "label": "Copy Link For Selection",
+                "command": "git-link:copy-link-to-selection"
+            },
+            {
+                "label": "Open In Web Browser",
+                "command": "git-link:open-selection-in-browser"
             }
-          ]
-        }
-      ]
+        ],
+        ".tab-bar .tab, .tree-view li.file, .tree-view li.directory .header": [
+            {
+                "label": "Open In Web Browser",
+                "command": "git-link:open-context-menu-selection-in-browser"
+            }
+        ]
     }
-  ]
 }
