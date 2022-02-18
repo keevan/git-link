@@ -74,9 +74,7 @@ Permalinks are possible only if changes are available remotely (changes have bee
 Please take a look at our [contributing guidelines](./.github/CONTRIBUTING.md) if you're interested in helping out!
 
 ##### Pending features
-- Add context menu items, when the file needn't be open (e.g. tree view).
 - Open a file locally based on a copied link.
-- Add tests to ensure there are no regressions with new changes.
 - Add option to disable default behaviour for 'Opening links on double copy'.
 - Custom tracker integration linking (e.g. copy / open link to relevant ticket this last change)
 
