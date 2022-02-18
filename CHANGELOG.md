@@ -1,3 +1,10 @@
+# [0.5.0](https://github.com/keevan/git-link/compare/v0.4.0...v0.5.0) (2022-02-18)
+
+
+### Features
+
+* support opening files/folders in browser via the context menu ([f31be1b](https://github.com/keevan/git-link/commit/f31be1bf021f3b2d705f9970f18fec333ea2afaf))
+
 # [0.4.0](https://github.com/keevan/git-link/compare/v0.3.0...v0.4.0) (2022-02-14)
 
 
