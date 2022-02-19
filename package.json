@@ -9,14 +9,15 @@
     "github",
     "gitlab",
     "git",
+    "atom",
+    "code",
+    "commits",
+    "copy",
     "link",
     "permalink",
-    "url",
-    "copy",
     "review",
-    "commits",
     "share",
-    "atom"
+    "url"
   ],
   "repository": "https://github.com/keevan/git-link",
   "license": "MIT",
@@ -36,6 +37,9 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
     "semantic-release": "^19.0.2"
+  },
+  "scripts": {
+    "postinstall": "husky install"
   },
   "config": {
     "commitizen": {
