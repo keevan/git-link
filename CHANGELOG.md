@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/keevan/git-link/compare/v0.5.0...v0.6.0) (2022-02-21)
+
+
+### Features
+
+* use short commit hash for each platform supported ([0800d41](https://github.com/keevan/git-link/commit/0800d41759fc7fb9986ed0964397b83a97415217))
+
 # [0.5.0](https://github.com/keevan/git-link/compare/v0.4.0...v0.5.0) (2022-02-18)
 
 
