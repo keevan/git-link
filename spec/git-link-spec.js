@@ -1,8 +1,8 @@
 'use babel';
 
 import GitLink from '../lib/git-link';
+import { toShortHash } from '../lib/git';
 import platform from '../lib/platform';
-import * as platforms from '../lib/platforms'
 
 // Use the command `window:run-package-specs` (ctrl+shift+y) to run specs.
 describe('GitLink', () => {
@@ -95,7 +95,7 @@ describe('GitLink', () => {
             // Expectations
             const log = '014ed5d66c0e5afc7badd8fde666e399e43aa882 (HEAD -> main, origin/main) Add CI for github workflows'
             expect('014ed5d66c0e5afc7badd8fde666e399e43aa882').toEqual(GitLink.getCommitHashFromLog(log))
-            expect('014ed5d').toEqual(GitLink.getShortCommitHash('014ed5d66c0e5afc7badd8fde666e399e43aa882'))
+            expect('014ed5d').toEqual(toShortHash('014ed5d66c0e5afc7badd8fde666e399e43aa882'))
         })
     })
 
