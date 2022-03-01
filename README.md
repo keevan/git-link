@@ -77,6 +77,13 @@ Please take a look at our [contributing guidelines](./.github/CONTRIBUTING.md) i
 - Open a file locally based on a copied link.
 - Add option to disable default behaviour for 'Opening links on double copy'.
 - Custom tracker integration linking (e.g. copy / open link to relevant ticket this last change)
+- Open blame view for file in browser
+- Open history view for file in browser
+- Open issues view for file in browser
+- Open PR/MR view for file in browser
+- Open/Copy compare view/link e.g. to current branch or a commit for file in browser
+- Detect PR branch and have a link ready for that as well (quickly jump to current PR in atom/browser) e.g. when doing a review
+- Open README in browser
 
 ### Support
 
