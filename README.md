@@ -53,9 +53,11 @@ Command List                         | Description
 `git-link:copy-link-to-line`         | Copies a link to the current line
 `git-link:copy-link-to-selection`    | Copies a link to the current selection
 `git-link:copy-link-to-file`         | Copies a link to the current file
+`git-link:copy-link-to-repository`   | Copies a link to the current repository
 `git-link:open-line-in-browser`      | Opens the link to the current line in browser
 `git-link:open-selection-in-browser` | Opens the link to the current selection in browser
 `git-link:open-file-in-browser`      | Opens the link to the current file in browser
+`git-link:open-repository-in-browser`| Opens the link to the current repository in browser
 `git-link:edit-line-in-browser`      | Opens __edit__ link to the current line in browser
 `git-link:edit-selection-in-browser` | Opens __edit__ link to the current selection in browser
 `git-link:edit-file-in-browser`      | Opens __edit__ link to the current file in browser
