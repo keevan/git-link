@@ -135,19 +135,6 @@ describe('GitLink', () => {
             });
         });
 
-        // getCurrentLineNumber
-        it('has to be on the correct line', () => {
-            const editor = atom.workspace.getActiveTextEditor()
-            editor.setCursorBufferPosition([1,1]) // Because it starts from zero
-            expect(2).toEqual(GitLink.getCurrentLineNumber())
-            editor.setCursorBufferPosition([2,1]) // Because it starts from zero
-            expect(3).toEqual(GitLink.getCurrentLineNumber())
-            editor.setCursorBufferPosition([2,0]) // Because it starts from zero
-            expect(3).toEqual(GitLink.getCurrentLineNumber())
-            editor.setCursorBufferPosition([0,0]) // Because it starts from zero
-            expect(1).toEqual(GitLink.getCurrentLineNumber())
-        })
-
         // getCurrentSelection
         it('has to include the correct selections', () => {
             const editor = atom.workspace.getActiveTextEditor()
