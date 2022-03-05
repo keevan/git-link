@@ -1,3 +1,16 @@
+# [0.7.0](https://github.com/keevan/git-link/compare/v0.6.0...v0.7.0) (2022-03-05)
+
+
+### Bug Fixes
+
+* handle invalid state link grabs more gracefully ([1e6d840](https://github.com/keevan/git-link/commit/1e6d8404bcd9a1f1c55f7d69acb64961519f930e)), closes [#17](https://github.com/keevan/git-link/issues/17)
+
+
+### Features
+
+* add basic support for command-palette-plus ([f7c97ae](https://github.com/keevan/git-link/commit/f7c97aebe12b10edc695c6929d4c1a53198555c1))
+* add support to copy or open the current repository ([0c25a9b](https://github.com/keevan/git-link/commit/0c25a9b2a3110b0d7173680e8cdc95583277c798))
+
 # [0.6.0](https://github.com/keevan/git-link/compare/v0.5.0...v0.6.0) (2022-02-21)
 
 

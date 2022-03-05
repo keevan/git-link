@@ -1,7 +1,7 @@
 {
   "name": "git-link",
   "main": "./lib/git-link",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Easily get the repository link to the current file, line or a selection",
   "keywords": [
     "azure-devops",
