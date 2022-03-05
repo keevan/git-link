@@ -1,5 +1,5 @@
 <h1 align="center">
-    :link: git-link
+    🔗 git-link
 </h1>
 <p align="center">Easily get the repository link to the current file, line or a selection</p>
 <p align="center">
@@ -29,19 +29,22 @@ Or search for the `git-link` package via `Settings > Packages`. Read more on [At
 
 ### Supported platforms
 
-- Works for GitHub.com (public, tested)
-- Works for GitLab.com (public, tested)
-- Works for BitBucket.org (public, tested)
-- Works for Azure DevOps (dev.azure.com) (public, tested)
+- Works for [GitHub.com](https://github.com) (public, tested)
+- Works for [GitLab.com](https://gitlab.com) (public, tested)
+- Works for [BitBucket.org](https://bitbucket.org) (public, tested)
+- Works for [Azure DevOps](https://dev.azure.com) (public, tested)
 - It might work for others (untested, PRs welcome)
+
+Please [add an issue](https://github.com/keevan/git-link/issues) if you need support for a platform not mentioned above.
 
 ### Features
 
-- Share and open what you've worked on, or a bug you've spotted.
+- Share and open what you've worked on, or a bug you've spotted
 - Copy a link to a __line__, __selection__ or __file__ for the current commit
+- Additional features added for _command-palette-plus_
 - Built with convenience in mind ([#tips](#Tips))
 - Handles non-typical file and folders okay - e.g. `[myfolder]/my#file.txt`
-- References markdown files in plaintext.
+- References markdown files in plaintext (on supported platforms)
 
 ### Command list
 No keymaps are currently set by default.
@@ -50,17 +53,17 @@ I recommended you configure your own keybindings and use what is comfortable for
 
 Command List                         | Description
 -------------------------------------|-------------
-`git-link:copy-link-to-line`         | Copies a link to the current line
-`git-link:copy-link-to-selection`    | Copies a link to the current selection
-`git-link:copy-link-to-file`         | Copies a link to the current file
-`git-link:copy-link-to-repository`   | Copies a link to the current repository
-`git-link:open-line-in-browser`      | Opens the link to the current line in browser
-`git-link:open-selection-in-browser` | Opens the link to the current selection in browser
-`git-link:open-file-in-browser`      | Opens the link to the current file in browser
-`git-link:open-repository-in-browser`| Opens the link to the current repository in browser
-`git-link:edit-line-in-browser`      | Opens __edit__ link to the current line in browser
-`git-link:edit-selection-in-browser` | Opens __edit__ link to the current selection in browser
-`git-link:edit-file-in-browser`      | Opens __edit__ link to the current file in browser
+`git-link:copy-link-to-line`         | __Copy__ a link to the current _line_
+`git-link:copy-link-to-selection`    | __Copy__ a link to the current _selection_
+`git-link:copy-link-to-file`         | __Copy__ a link to the current _file_
+`git-link:copy-link-to-repository`   | __Copy__ a link to the current _repository_
+`git-link:open-line-in-browser`      | __Open__ the current _line_ in browser
+`git-link:open-selection-in-browser` | __Open__ the current _selection_ in browser
+`git-link:open-file-in-browser`      | __Open__ the current _file_ in browser
+`git-link:open-repository-in-browser`| __Open__ the current _repository_ in browser
+`git-link:edit-line-in-browser`      | __Edit__ current _line_ in browser
+`git-link:edit-selection-in-browser` | __Edit__ current _selection_ in browser
+`git-link:edit-file-in-browser`      | __Edit__ current _file_ in browser
 
 
 ### Tips
@@ -89,7 +92,7 @@ Please take a look at our [contributing guidelines](./.github/CONTRIBUTING.md) i
 
 ### Support
 
-If you like this project or found it helpful, please consider supporting it for further development.
+If you like or found this project helpful, please leave a star and consider supporting it for further development.
 
 <a href="https://liberapay.com/kevinpham/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg" style="height: 40px; padding-right: 10px">
 <a href="https://www.buymeacoffee.com/keevan" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important" ></a>
