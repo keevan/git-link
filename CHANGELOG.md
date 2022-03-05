@@ -1,3 +1,10 @@
+## [0.7.1](https://github.com/keevan/git-link/compare/v0.7.0...v0.7.1) (2022-03-05)
+
+
+### Bug Fixes
+
+* align 'Open repository in browser' command with other commands ([3f1b638](https://github.com/keevan/git-link/commit/3f1b638dc988c7c5ed0fb010af18bd16ff16a32a))
+
 # [0.7.0](https://github.com/keevan/git-link/compare/v0.6.0...v0.7.0) (2022-03-05)
 
 
