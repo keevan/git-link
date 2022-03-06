@@ -25,7 +25,7 @@ describe('GitLink', () => {
     })
 
     describe('Test platform support - github', () => {
-        it("has to detect github", () => {
+        it("has to detect github", async () => {
             const urls = [
              'git@github.com:keevan/git-link.git',
              'https://github.com/keevan/git-link',
@@ -37,6 +37,46 @@ describe('GitLink', () => {
                 const resolvedRepo = p.getRepo()
                 expect('https://github.com/keevan/git-link').toEqual(resolvedRepo)
             })
+
+        })
+        it("has to support relevant links", async () => {
+            // Given a github repo
+            const url = 'git@github.com:keevan/git-link.git'
+            const commitHash = 'abc1234'
+            // Resolve the platform
+            const repo = GitLink.getRepoFromOrigin(url)
+            const p = await platform.create({ repo })
+            // Issues page
+            expect('https://github.com/keevan/git-link/issues').toEqual(p.getIssuesLink())
+            // Pull Requests page
+            expect('https://github.com/keevan/git-link/pulls').toEqual(p.getPullRequestsLink())
+
+            // Test for different types of links (file)
+            const relativePath = '/path/to/file'
+            // Normal
+            expect(`https://github.com/keevan/git-link/blob/${commitHash}${relativePath}`)
+                .toEqual(p.getFileLink({ commitHash, relativePath }))
+            // Blame
+            expect(`https://github.com/keevan/git-link/blame/${commitHash}${relativePath}`)
+                .toEqual(p.getFileLink({ commitHash, relativePath, blame: true }))
+            // History
+            expect(`https://github.com/keevan/git-link/commits/${commitHash}${relativePath}`)
+                .toEqual(p.getFileLink({ commitHash, relativePath, history: true }))
+            // Test for different types of links (selection)
+            const start = 10
+            const end = 15
+            // Normal - line
+            expect(`https://github.com/keevan/git-link/blob/${commitHash}${relativePath}#L10`)
+                .toEqual(p.getLineLink({ commitHash, relativePath, start }))
+            // Normal - selection
+            expect(`https://github.com/keevan/git-link/blob/${commitHash}${relativePath}#L10-L15`)
+                .toEqual(p.getSelectionLink({ commitHash, relativePath, start, end }))
+            // Blame - line
+            expect(`https://github.com/keevan/git-link/blame/${commitHash}${relativePath}#L10`)
+                .toEqual(p.getLineLink({ commitHash, relativePath, start, blame: true }))
+            // Blame - selection
+            expect(`https://github.com/keevan/git-link/blame/${commitHash}${relativePath}#L10-L15`)
+                .toEqual(p.getSelectionLink({ commitHash, relativePath, start, end, blame: true }))
         })
     })
 
@@ -53,6 +93,44 @@ describe('GitLink', () => {
                 const resolvedRepo = p.getRepo()
                 expect('https://gitlab.com/user/repo').toEqual(resolvedRepo)
             })
+        })
+        it("has to support relevant links", async () => {
+            // Given a github repo
+            const url = 'git@gitlab.com:user/repo.git'
+            const commitHash = 'abc1234'
+            // Resolve the platform
+            const repo = GitLink.getRepoFromOrigin(url)
+            const p = await platform.create({ repo })
+            // Issues page
+            expect('https://gitlab.com/user/repo/-/issues').toEqual(p.getIssuesLink())
+            // Pull Requests page
+            expect('https://gitlab.com/user/repo/-/merge_requests').toEqual(p.getPullRequestsLink())
+            // Test for different types of links (file)
+            const relativePath = '/path/to/file'
+            // Normal
+            expect(`https://gitlab.com/user/repo/-/blob/${commitHash}${relativePath}`)
+                .toEqual(p.getFileLink({ commitHash, relativePath }))
+            // Blame
+            expect(`https://gitlab.com/user/repo/-/blame/${commitHash}${relativePath}`)
+                .toEqual(p.getFileLink({ commitHash, relativePath, blame: true }))
+            // History
+            expect(`https://gitlab.com/user/repo/-/commits/${commitHash}${relativePath}`)
+                .toEqual(p.getFileLink({ commitHash, relativePath, history: true }))
+            // Test for different types of links (selection)
+            const start = 10
+            const end = 15
+            // Normal - line
+            expect(`https://gitlab.com/user/repo/-/blob/${commitHash}${relativePath}#L10`)
+                .toEqual(p.getLineLink({ commitHash, relativePath, start }))
+            // Normal - selection
+            expect(`https://gitlab.com/user/repo/-/blob/${commitHash}${relativePath}#L10-15`)
+                .toEqual(p.getSelectionLink({ commitHash, relativePath, start, end }))
+            // Blame - line
+            expect(`https://gitlab.com/user/repo/-/blame/${commitHash}${relativePath}#L10`)
+                .toEqual(p.getLineLink({ commitHash, relativePath, start, blame: true }))
+            // Blame - selection
+            expect(`https://gitlab.com/user/repo/-/blame/${commitHash}${relativePath}#L10-15`)
+                .toEqual(p.getSelectionLink({ commitHash, relativePath, start, end, blame: true }))
         })
     })
 
@@ -87,6 +165,45 @@ describe('GitLink', () => {
                 const resolvedRepo = p.getRepo()
                 expect('https://bitbucket.org/user/repo').toEqual(resolvedRepo)
             })
+        })
+
+        it("has to support relevant links", async () => {
+            // Given a github repo
+            const url = 'git@bitbucket.org:user/repo.git'
+            const commitHash = 'abc1234'
+            // Resolve the platform
+            const repo = GitLink.getRepoFromOrigin(url)
+            const p = await platform.create({ repo })
+            // Issues page
+            expect('https://bitbucket.org/user/repo/issues').toEqual(p.getIssuesLink())
+            // Pull Requests page
+            expect('https://bitbucket.org/user/repo/pull-requests').toEqual(p.getPullRequestsLink())
+            // Test for different types of links (file)
+            const relativePath = '/path/to/file'
+            // Normal
+            expect(`https://bitbucket.org/user/repo/src/${commitHash}${relativePath}`)
+                .toEqual(p.getFileLink({ commitHash, relativePath }))
+            // 'Blame' is annotate for bitbucket - https://jira.atlassian.com/browse/BCLOUD-16318
+            expect(`https://bitbucket.org/user/repo/annotate/${commitHash}${relativePath}`)
+                .toEqual(p.getFileLink({ commitHash, relativePath, blame: true }))
+            // History
+            expect(`https://bitbucket.org/user/repo/commits/${commitHash}${relativePath}`)
+                .toEqual(p.getFileLink({ commitHash, relativePath, history: true }))
+            // Test for different types of links (selection)
+            const start = 10
+            const end = 15
+            // Normal - line
+            expect(`https://bitbucket.org/user/repo/src/${commitHash}${relativePath}#-10`)
+                .toEqual(p.getLineLink({ commitHash, relativePath, start }))
+            // Normal - selection
+            expect(`https://bitbucket.org/user/repo/src/${commitHash}${relativePath}#-10:15`)
+                .toEqual(p.getSelectionLink({ commitHash, relativePath, start, end }))
+            // Blame - line
+            expect(`https://bitbucket.org/user/repo/annotate/${commitHash}${relativePath}#-10`)
+                .toEqual(p.getLineLink({ commitHash, relativePath, start, blame: true }))
+            // Blame - selection
+            expect(`https://bitbucket.org/user/repo/annotate/${commitHash}${relativePath}#-10:15`)
+                .toEqual(p.getSelectionLink({ commitHash, relativePath, start, end, blame: true }))
         })
     })
 
