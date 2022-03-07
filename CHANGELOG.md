@@ -1,3 +1,18 @@
+# [0.8.0](https://github.com/keevan/git-link/compare/v0.7.1...v0.8.0) (2022-03-07)
+
+
+### Bug Fixes
+
+* add the '/-/' separator for gitlab links ([623ac7a](https://github.com/keevan/git-link/commit/623ac7aff4ba788e42df5027de148759ed6952a3)), closes [#25](https://github.com/keevan/git-link/issues/25)
+
+
+### Features
+
+* add azure platform support ([60eb443](https://github.com/keevan/git-link/commit/60eb44383e6193b98d8ed777b8a11f76c1ee6e9b))
+* add basic blame and history link support for GitHub ([8374b73](https://github.com/keevan/git-link/commit/8374b73b52dd76473ceb50bd4469cbc0b82ecea1))
+* add pull request and issues link support for bitbucket ([b5261e8](https://github.com/keevan/git-link/commit/b5261e86fb72f005f0d143f825ed3538e78f0e73))
+* add support for blame/history links for gitlab and bitbucket ([790bf93](https://github.com/keevan/git-link/commit/790bf9356db59840640f54e9872019104e32ef0b))
+
 ## [0.7.1](https://github.com/keevan/git-link/compare/v0.7.0...v0.7.1) (2022-03-05)
 
 
