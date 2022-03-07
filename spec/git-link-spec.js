@@ -149,6 +149,48 @@ describe('GitLink', () => {
                 expect('https://dev.azure.com/keevan/Test/_git/repo').toEqual(resolvedRepo)
             })
         })
+
+        it("has to support relevant links", async () => {
+            // Given a github repo
+            const url = 'git@ssh.dev.azure.com:v3/keevan/Test/repo'
+            const commitHash = 'abc1234567890abdef00abc1234567890abdef00'
+            // Resolve the platform
+            const repo = GitLink.getRepoFromOrigin(url)
+            const p = await platform.create({ repo })
+            // Issues page
+            // Does not appear to have this page? (well, not that I'm aware of)
+            // Pull Requests page
+            expect('https://dev.azure.com/keevan/Test/_git/repo/pullrequests').toEqual(p.getPullRequestsLink())
+            // Test for different types of links (file)
+            const relativePath = '/path/to/file'
+            // Normal
+            expect(`https://dev.azure.com/keevan/Test/_git/repo?path=${relativePath}&version=GC${commitHash}`)
+                .toEqual(p.getFileLink({ commitHash, relativePath }))
+            // 'Blame' is annotate for bitbucket - https://jira.atlassian.com/browse/BCLOUD-16318
+            // https://dev.azure.com/keevan/Test/_git/Another?path=%2FREADME.md&_a=blame&version=GC65bf33446688197b485be19b7d11d074230e8647
+            expect(`https://dev.azure.com/keevan/Test/_git/repo?path=${relativePath}&version=GC${commitHash}&_a=blame`)
+                .toEqual(p.getFileLink({ commitHash, relativePath, blame: true }))
+            // History
+            expect(`https://dev.azure.com/keevan/Test/_git/repo?path=${relativePath}&version=GC${commitHash}&_a=history`)
+                .toEqual(p.getFileLink({ commitHash, relativePath, history: true }))
+            // Test for different types of links (selection)
+            const start = 10
+            const end = 15
+            const startColumn = 3
+            const endColumn = 5
+            // Normal - line
+            expect(`https://dev.azure.com/keevan/Test/_git/repo?path=${relativePath}&version=GC${commitHash}&line=${start}&lineEnd=${start}&lineStartColumn=${startColumn}&lineEndColumn=${endColumn}`)
+                .toEqual(p.getLineLink({ commitHash, relativePath, start, startColumn, endColumn }))
+            // Normal - selection
+            expect(`https://dev.azure.com/keevan/Test/_git/repo?path=${relativePath}&version=GC${commitHash}&line=${start}&lineEnd=${end}&lineStartColumn=${startColumn}&lineEndColumn=${endColumn}`)
+                .toEqual(p.getSelectionLink({  commitHash, relativePath, start, end, startColumn, endColumn }))
+            // Blame - line
+            expect(`https://dev.azure.com/keevan/Test/_git/repo?path=${relativePath}&version=GC${commitHash}&line=${start}&lineEnd=${start}&lineStartColumn=${startColumn}&lineEndColumn=${endColumn}&_a=blame`)
+                .toEqual(p.getLineLink({ commitHash, relativePath, start, startColumn, endColumn, blame: true }))
+            // Blame - selection
+            expect(`https://dev.azure.com/keevan/Test/_git/repo?path=${relativePath}&version=GC${commitHash}&line=${start}&lineEnd=${end}&lineStartColumn=${startColumn}&lineEndColumn=${endColumn}&_a=blame`)
+                .toEqual(p.getSelectionLink({   commitHash, relativePath, start, end, startColumn, endColumn, blame: true }))
+        })
     })
 
     describe('Test platform support - bitbucket', () => {
